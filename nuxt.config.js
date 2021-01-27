@@ -9,7 +9,7 @@ export default {
     titleTemplate: '%s - dbd-results',
     title: 'dbd-results',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
