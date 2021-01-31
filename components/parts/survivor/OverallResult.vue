@@ -39,13 +39,13 @@ export default defineComponent({
         align: 'start',
         value: 'name',
         sortable: false,
-        class: 'text-center',
+        class: 'text-center body-2 font-weight-bold',
       },
-      { text: '対戦数', class: '' },
-      { text: '総得点', class: '' },
-      { text: '平均得点', class: '' },
-      { text: '脱出数', class: '' },
-      { text: '脱出率 (%)', class: '' },
+      { text: '対戦数', class: 'body-2 font-weight-bold' },
+      { text: '総得点', class: 'body-2 font-weight-bold' },
+      { text: '平均得点', class: 'body-2 font-weight-bold' },
+      { text: '脱出数', class: 'body-2 font-weight-bold' },
+      { text: '脱出率 (%)', class: 'body-2 font-weight-bold' },
     ])
 
     const killers = ref(killerData)

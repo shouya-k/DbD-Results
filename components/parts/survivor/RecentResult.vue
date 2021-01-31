@@ -54,22 +54,22 @@ export default defineComponent({
         text: '対戦キラー',
         align: 'start',
         sortable: false,
-        class: 'text-center',
+        class: 'text-center body-2 font-weight-bold',
       },
       {
         text: '獲得得点',
         sortable: false,
-        class: 'text-center',
+        class: 'text-center body-2 font-weight-bold',
       },
       {
         text: '使用パーク',
         sortable: false,
-        class: 'text-center',
+        class: 'text-center body-2 font-weight-bold',
       },
       {
         text: 'ステータス',
         sortable: false,
-        class: 'text-center',
+        class: 'text-center body-2 font-weight-bold',
       },
     ])
 

@@ -8,7 +8,7 @@
     fixed-header
     class="elevation-1"
   >
-    <template v-slot:body="{ items: killers }">
+    <template #body="{ items: killers }">
       <tbody class="table__body">
         <tr v-for="killer in killers" :key="killer.id" class="table__tr pa-10">
           <td class="table__td--name">
@@ -36,13 +36,13 @@ export default defineComponent({
       {
         text: '対戦キラー',
         sortable: false,
-        class: 'text-center',
+        class: 'text-center body-2 font-weight-bold',
       },
-      { text: '対戦数', class: '' },
-      { text: '総得点', class: '' },
-      { text: '平均得点', class: '' },
-      { text: '脱出数', class: '' },
-      { text: '脱出率 (%)', class: '' },
+      { text: '対戦数', class: 'body-2 font-weight-bold' },
+      { text: '総得点', class: 'body-2 font-weight-bold' },
+      { text: '平均得点', class: 'body-2 font-weight-bold' },
+      { text: '脱出数', class: 'body-2 font-weight-bold' },
+      { text: '脱出率 (%)', class: 'body-2 font-weight-bold' },
     ])
 
     const killers = ref(killerData)

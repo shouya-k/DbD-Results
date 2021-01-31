@@ -20,13 +20,7 @@
             <overall-results v-show="item === '全体戦績'" />
             <personal-results v-show="item === '個人戦績'" />
             <recent-results v-show="item === '直近記録'" />
-
-            <v-data-table
-              v-show="item === '戦績登録'"
-              :headers="headers"
-              hide-default-footer
-              class="elevation-1"
-            ></v-data-table>
+            <results-form v-show="item === '戦績登録'" />
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -38,11 +32,13 @@
 import OverallResults from '~/components/parts/survivor/OverallResult.vue'
 import PersonalResults from '~/components/parts/survivor/PersonalResult.vue'
 import RecentResults from '~/components/parts/survivor/RecentResult.vue'
+import ResultsForm from '~/components/parts/survivor/ResultForm.vue'
 export default {
   components: {
     OverallResults,
     PersonalResults,
     RecentResults,
+    ResultsForm,
   },
   data() {
     return {
