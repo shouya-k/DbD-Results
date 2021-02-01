@@ -1,6 +1,5 @@
 <template>
   <v-data-table
-    v-show="item === '全体戦績'"
     :headers="tableHead"
     :items="killers"
     :items-per-page="-1"

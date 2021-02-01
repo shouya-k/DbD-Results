@@ -24,10 +24,7 @@
 
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
       <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
+        <v-list-item-group active-class="deep-purple--text text--accent-4">
           <v-list-item to="/" nuxt>
             <v-list-item-title>ホーム</v-list-item-title>
           </v-list-item>
