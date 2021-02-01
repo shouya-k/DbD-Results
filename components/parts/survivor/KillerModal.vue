@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <div class="modal">
-      <p class="modal__title">使用パーク</p>
+      <p class="modal__title">対戦キラー</p>
       <div v-for="img in images" :key="img.id" class="modal__image">
         <img class="modal__img" :src="img.url" />
         <p class="modal__name">{{ img.name }}</p>
@@ -13,16 +13,15 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
-import ParkData from '~/static/js/parkData'
-
+import killerData from '~/static/js/killerData'
 export default defineComponent({
   setup(props, context) {
-    const modal = reactive({
-      images: ParkData,
+    const form = reactive({
+      images: killerData,
     })
 
     return {
-      ...toRefs(modal),
+      ...toRefs(form),
     }
   },
 })
@@ -31,11 +30,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .modal {
   width: 60%;
-  height: 80%;
-  overflow-y: scroll;
+  padding: 20px;
   background-color: #1f1f1f;
   color: #fff;
   border: 1px solid black;
+
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 10%;
@@ -45,33 +44,28 @@ export default defineComponent({
   z-index: 6;
 
   &__title {
-    position: sticky;
-    top: 0;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
-    padding-top: 25px;
     margin-bottom: 30px;
-    background-color: #1f1f1f;
-    z-index: 8;
   }
 
   &__image {
     width: 16%;
     float: left;
-    padding-top: 10px;
+    padding-top: 20px;
     margin-left: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.12);
     }
   }
   &__name {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     text-align: center;
     font-weight: bold;
-    margin: 0;
   }
 
   &__img {
@@ -83,7 +77,7 @@ export default defineComponent({
   }
 
   &__mask {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     opacity: 0.6;
     position: fixed;
     top: 0;
