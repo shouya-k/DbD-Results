@@ -1,13 +1,18 @@
 <template>
-  <v-card>
+  <v-card v-show="isShow">
     <div class="modal">
       <p class="modal__title">対戦キラー</p>
-      <div v-for="img in images" :key="img.id" class="modal__image">
+      <div
+        v-for="img in images"
+        :key="img.id"
+        class="modal__image"
+        @click="selectKiller(img)"
+      >
         <img class="modal__img" :src="img.url" />
         <p class="modal__name">{{ img.name }}</p>
       </div>
     </div>
-    <div class="modal__mask"></div>
+    <div class="modal__mask" @click="hiddenModal"></div>
   </v-card>
 </template>
 
@@ -15,13 +20,29 @@
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
 import killerData from '~/static/js/killerData'
 export default defineComponent({
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup(props, context) {
     const form = reactive({
       images: killerData,
     })
 
+    const hiddenModal = () => {
+      context.emit('hiddenModal')
+    }
+
+    const selectKiller = (img: {}) => {
+      context.emit('selectKiller', img)
+    }
+
     return {
       ...toRefs(form),
+      hiddenModal,
+      selectKiller,
     }
   },
 })

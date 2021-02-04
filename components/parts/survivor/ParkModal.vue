@@ -1,13 +1,18 @@
 <template>
-  <v-card>
+  <v-card v-show="isShow">
     <div class="modal">
       <p class="modal__title">使用パーク</p>
-      <div v-for="img in images" :key="img.id" class="modal__image">
+      <div
+        v-for="img in images"
+        :key="img.id"
+        class="modal__image"
+        @click="selectPark(img)"
+      >
         <img class="modal__img" :src="img.url" />
         <p class="modal__name">{{ img.name }}</p>
       </div>
     </div>
-    <div class="modal__mask"></div>
+    <div class="modal__mask" @click="hiddenModal"></div>
   </v-card>
 </template>
 
@@ -16,13 +21,29 @@ import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
 import ParkData from '~/static/js/parkData'
 
 export default defineComponent({
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup(props, context) {
     const modal = reactive({
       images: ParkData,
     })
 
+    const hiddenModal = () => {
+      context.emit('hiddenModal')
+    }
+
+    const selectPark = (img: {}) => {
+      context.emit('selectPark', img)
+    }
+
     return {
       ...toRefs(modal),
+      hiddenModal,
+      selectPark,
     }
   },
 })
