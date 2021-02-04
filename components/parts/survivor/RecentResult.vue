@@ -1,13 +1,12 @@
 <template>
   <v-data-table
     :headers="tableHead"
-    :items="desserts2"
     hide-default-footer
     :height="530"
     fixed-header
     class="elevation-1"
   >
-    <template v-slot:body>
+    <template #body>
       <tbody class="table__body">
         <tr class="table__tr--win">
           <td class="table__td table__td--name">
@@ -16,10 +15,10 @@
           </td>
           <td class="table__td">20,000</td>
           <td class="table__images">
-            <img class="table__park-img" :src="park[0]" alt="" />
-            <img class="table__park-img" :src="park[1]" alt="" />
-            <img class="table__park-img" :src="park[2]" alt="" />
-            <img class="table__park-img" :src="park[3]" alt="" />
+            <img class="table__park-img" :src="park[0].url" alt="" />
+            <img class="table__park-img" :src="park[1].url" alt="" />
+            <img class="table__park-img" :src="park[2].url" alt="" />
+            <img class="table__park-img" :src="park[3].url" alt="" />
           </td>
           <td class="table__td">生存</td>
         </tr>
@@ -30,10 +29,10 @@
           </td>
           <td class="table__td">20,000</td>
           <td class="table__images">
-            <img class="table__park-img" :src="park[0]" alt="" />
-            <img class="table__park-img" :src="park[1]" alt="" />
-            <img class="table__park-img" :src="park[2]" alt="" />
-            <img class="table__park-img" :src="park[3]" alt="" />
+            <img class="table__park-img" :src="park[0].url" alt="" />
+            <img class="table__park-img" :src="park[1].url" alt="" />
+            <img class="table__park-img" :src="park[2].url" alt="" />
+            <img class="table__park-img" :src="park[3].url" alt="" />
           </td>
           <td class="table__td">死亡</td>
         </tr>
@@ -90,9 +89,16 @@ export default defineComponent({
   &__tr {
     &--win {
       background-color: rgb(252, 160, 157);
+      &:hover {
+        background-color: rgb(252, 160, 157) !important;
+      }
     }
+
     &--lose {
       background-color: rgb(135, 175, 245);
+      &:hover {
+        background-color: rgb(135, 175, 245) !important;
+      }
     }
   }
 

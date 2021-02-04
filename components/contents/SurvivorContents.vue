@@ -19,7 +19,7 @@
           <v-card color="basil" flat>
             <overall-results v-show="item === '全体戦績'" />
             <personal-results v-show="item === '個人戦績'" />
-            <recent-results v-show="item === '直近記録'" />
+            <recent-results v-show="item === '直近戦績'" />
             <results-form v-show="item === '戦績登録'" />
           </v-card>
         </v-tab-item>
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       tab: null,
-      items: ['全体戦績', '個人戦績', '直近記録', '戦績登録'],
+      items: ['全体戦績', '個人戦績', '直近戦績', '戦績登録'],
     }
   },
 }

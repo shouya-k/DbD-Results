@@ -1,32 +1,47 @@
 <template>
   <div>
-    <v-data-table
-      :headers="tableHead"
-      :items="desserts2"
-      hide-default-footer
-      class="elevation-1"
-    >
+    <v-data-table :headers="tableHead" hide-default-footer class="elevation-1">
       <template #body>
         <tbody class="table__body">
           <tr class="table__tr">
-            <td class="table__td table__td--name">
-              <img class="table__killer-img" :src="killers[0].url" alt="" />
-              <span class="table__span">トラッパー</span>
+            <td class="table__td" @click="showKillerModal">
+              <img class="table__killer-img" :src="killer.image" />
+              <span class="table__span">{{ killer.name }}</span>
             </td>
             <td class="table__td">
-              <input class="table__input" type="text" />
+              <input v-model="score" class="table__input" type="text" />
             </td>
             <td class="table__td">
-              <img class="table__park-img" :src="park[0]" />
-              <img class="table__park-img" :src="park[0]" />
-              <img class="table__park-img" :src="park[0]" />
-              <img class="table__park-img" :src="park[0]" />
+              <img
+                class="table__park-img"
+                :src="parkImage01"
+                alt=""
+                @click="showParkModal01"
+              />
+              <img
+                class="table__park-img"
+                :src="parkImage02"
+                alt=""
+                @click="showParkModal02"
+              />
+              <img
+                class="table__park-img"
+                :src="parkImage03"
+                alt=""
+                @click="showParkModal03"
+              />
+              <img
+                class="table__park-img"
+                :src="parkImage04"
+                alt=""
+                @click="showParkModal04"
+              />
             </td>
             <td class="table__td">
-              <select class="table__select">
+              <select v-model="result" class="table__select">
                 <option></option>
-                <option value="0">生存</option>
-                <option value="1">死亡</option>
+                <option value="survival">生存</option>
+                <option value="death">死亡</option>
               </select>
             </td>
           </tr>
@@ -34,19 +49,50 @@
       </template>
     </v-data-table>
     <div class="table__footer">
-      <v-btn class="table__btn" color="primary" height="34px" width="160px"
+      <v-btn class="table__btn" color="primary" height="40px" width="160px"
         >登録</v-btn
       >
     </div>
+    <killer-modal
+      :is-show="killer.modal"
+      @hiddenModal="hiddenKillerModal"
+      @selectKiller="selectKiller($event)"
+    ></killer-modal>
+    <park-modal
+      :is-show="parkModal01"
+      @hiddenModal="hiddenParkModal01"
+      @selectPark="selectPark01($event)"
+    ></park-modal>
+    <park-modal
+      :is-show="parkModal02"
+      @hiddenModal="hiddenParkModal02"
+      @selectPark="selectPark02($event)"
+    ></park-modal>
+    <park-modal
+      :is-show="parkModal03"
+      @hiddenModal="hiddenParkModal03"
+      @selectPark="selectPark03($event)"
+    ></park-modal>
+    <park-modal
+      :is-show="parkModal04"
+      @hiddenModal="hiddenParkModal04"
+      @selectPark="selectPark04($event)"
+    ></park-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
-import killerData from '~/static/js/killerData'
-import parkData from '~/static/js/parkData'
+import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import KillerModal from '~/components/parts/survivor/KillerModal.vue'
+import ParkModal from '~/components/parts/survivor/ParkModal.vue'
+import { useKillerModal } from '~/compositions/survivor/useKillerModal.ts'
+import { useParkModal } from '~/compositions/survivor/useParkModal.ts'
 
 export default defineComponent({
+  components: {
+    KillerModal,
+    ParkModal,
+  },
   setup() {
     const tableHead = reactive([
       {
@@ -72,13 +118,54 @@ export default defineComponent({
       },
     ])
 
-    const killers = ref(killerData)
-    const park = ref(parkData)
+    const form = reactive({
+      score: '',
+      result: '',
+    })
+
+    const {
+      killer,
+      showKillerModal,
+      hiddenKillerModal,
+      selectKiller,
+    } = useKillerModal()
+
+    const {
+      survivor,
+      showParkModal01,
+      showParkModal02,
+      showParkModal03,
+      showParkModal04,
+      hiddenParkModal01,
+      hiddenParkModal02,
+      hiddenParkModal03,
+      hiddenParkModal04,
+      selectPark01,
+      selectPark02,
+      selectPark03,
+      selectPark04,
+    } = useParkModal()
 
     return {
       tableHead,
-      killers,
-      park,
+      ...toRefs(form),
+      killer,
+      showKillerModal,
+      hiddenKillerModal,
+      selectKiller,
+      ...toRefs(survivor),
+      showParkModal01,
+      showParkModal02,
+      showParkModal03,
+      showParkModal04,
+      hiddenParkModal01,
+      hiddenParkModal02,
+      hiddenParkModal03,
+      hiddenParkModal04,
+      selectPark01,
+      selectPark02,
+      selectPark03,
+      selectPark04,
     }
   },
 })
@@ -105,6 +192,7 @@ export default defineComponent({
     display: block;
     margin: 0 auto 5px;
     border: 1px solid #fff;
+    cursor: pointer;
   }
 
   &__images {
@@ -116,7 +204,7 @@ export default defineComponent({
     height: 53px;
     margin-right: 3px;
     border: 1px solid #fff;
-    border-radius: 6px;
+    border-radius: 2px;
   }
 
   &__input {
