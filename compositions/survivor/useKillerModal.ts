@@ -4,7 +4,7 @@ export const useKillerModal = () => {
   const killer = reactive({
     modal: false,
     id: '',
-    image: null,
+    image: '',
     name: '',
   })
 

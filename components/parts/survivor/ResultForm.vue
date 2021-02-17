@@ -5,7 +5,7 @@
         <tbody class="table__body">
           <tr class="table__tr">
             <td class="table__td" @click="showKillerModal">
-              <img class="table__killer-img" :src="killer.image" />
+              <img class="table__killer-img" :src="killer.image" alt />
               <span class="table__span">{{ killer.name }}</span>
             </td>
             <td class="table__td">
@@ -38,10 +38,14 @@
               />
             </td>
             <td class="table__td">
-              <select v-model="result" class="table__select">
-                <option></option>
-                <option value="survival">生存</option>
-                <option value="death">死亡</option>
+              <select
+                v-model="status"
+                class="table__select"
+                @change="resultStatus($event)"
+              >
+                <option value=""></option>
+                <option value="生存">生存</option>
+                <option value="死亡">死亡</option>
               </select>
             </td>
           </tr>
@@ -49,7 +53,12 @@
       </template>
     </v-data-table>
     <div class="table__footer">
-      <v-btn class="table__btn" color="primary" height="40px" width="160px"
+      <v-btn
+        class="table__btn"
+        color="primary"
+        height="40px"
+        width="160px"
+        @click="createSurvivorResult"
         >登録</v-btn
       >
     </div>
@@ -87,6 +96,7 @@ import KillerModal from '~/components/parts/survivor/KillerModal.vue'
 import ParkModal from '~/components/parts/survivor/ParkModal.vue'
 import { useKillerModal } from '~/compositions/survivor/useKillerModal.ts'
 import { useParkModal } from '~/compositions/survivor/useParkModal.ts'
+import { useCreateResult } from '~/compositions/survivor/useCreateResult'
 
 export default defineComponent({
   components: {
@@ -118,11 +128,6 @@ export default defineComponent({
       },
     ])
 
-    const form = reactive({
-      score: '',
-      result: '',
-    })
-
     const {
       killer,
       showKillerModal,
@@ -146,6 +151,24 @@ export default defineComponent({
       selectPark04,
     } = useParkModal()
 
+    const form = reactive({
+      score: '',
+      status: '',
+      survival: false,
+    })
+
+    const createSurvivorResult = (): void => {
+      useCreateResult(form, killer, survivor)
+    }
+
+    const resultStatus = (event: any) => {
+      if (event.target.value === '生存') {
+        form.survival = true
+      } else {
+        form.survival = false
+      }
+    }
+
     return {
       tableHead,
       ...toRefs(form),
@@ -166,6 +189,8 @@ export default defineComponent({
       selectPark02,
       selectPark03,
       selectPark04,
+      createSurvivorResult,
+      resultStatus,
     }
   },
 })
@@ -178,6 +203,7 @@ export default defineComponent({
   }
 
   &__td {
+    font-family: 'Times New Roman';
     color: #fff;
     text-align: center;
 

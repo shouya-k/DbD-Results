@@ -8,19 +8,15 @@
     fixed-header
     class="elevation-1"
   >
-    <template v-slot:body="{ items: killers }">
+    <template #body="{ items: killers }">
       <tbody class="table__body">
-        <tr v-for="killer in killers" :key="killer.id" class="table__tr pa-10">
-          <td class="table__td--name">
-            <img class="table__img" :src="killer.url" />
-            <span class="table__span">{{ killer.name }}</span>
-          </td>
-          <td class="table__td">20</td>
-          <td class="table__td">12,000,000</td>
-          <td class="table__td">200,000</td>
-          <td class="table__td">5</td>
-          <td class="table__td">50%</td>
-        </tr>
+        <killer-results
+          v-for="killer in killers"
+          :id="killer.id"
+          :key="killer.id"
+          :name="killer.name"
+          :img="killer.url"
+        />
       </tbody>
     </template>
   </v-data-table>
@@ -28,30 +24,59 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import { useGetResult } from '~/compositions/survivor/useGetResult'
+import KillerResults from '~/components/parts/survivor/OverallKillerData.vue'
 import killerData from '~/static/js/killerData'
 
 export default defineComponent({
-  setup() {
+  components: {
+    KillerResults,
+  },
+  setup(props, context) {
     const tableHead = reactive([
       {
         text: '対戦キラー',
-        align: 'start',
-        value: 'name',
+        align: 'center',
         sortable: false,
-        class: 'text-center body-2 font-weight-bold',
+        class: 'body-2 font-weight-bold',
       },
-      { text: '対戦数', class: 'body-2 font-weight-bold' },
-      { text: '総得点', class: 'body-2 font-weight-bold' },
-      { text: '平均得点', class: 'body-2 font-weight-bold' },
-      { text: '脱出数', class: 'body-2 font-weight-bold' },
-      { text: '脱出率 (%)', class: 'body-2 font-weight-bold' },
+      {
+        text: '対戦数',
+        class: 'body-2 font-weight-bold',
+        sortable: false,
+      },
+      {
+        text: '総得点',
+        class: 'body-2 font-weight-bold',
+        sortable: false,
+      },
+      {
+        text: '平均得点',
+        class: 'body-2 font-weight-bold',
+        sortable: false,
+      },
+      {
+        text: '脱出数',
+        class: 'body-2 font-weight-bold',
+        sortable: false,
+      },
+      {
+        text: '脱出率 (%)',
+        class: 'body-2 font-weight-bold',
+        sortable: false,
+      },
     ])
 
     const killers = ref(killerData)
 
+    const { results, serchResult } = useGetResult()
+
+    serchResult(killers)
+
     return {
       tableHead,
       killers,
+      results,
     }
   },
 })

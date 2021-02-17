@@ -29,24 +29,33 @@
 </template>
 
 <script>
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import OverallResults from '~/components/parts/survivor/OverallResult.vue'
 import PersonalResults from '~/components/parts/survivor/PersonalResult.vue'
 import RecentResults from '~/components/parts/survivor/RecentResult.vue'
 import ResultsForm from '~/components/parts/survivor/ResultForm.vue'
-export default {
+import killerData from '~/static/js/killerData'
+export default defineComponent({
   components: {
     OverallResults,
     PersonalResults,
     RecentResults,
     ResultsForm,
   },
-  data() {
+  setup() {
+    const tab = ref(null)
+
+    const items = reactive(['全体戦績', '個人戦績', '直近戦績', '戦績登録'])
+
+    const killers = ref(killerData)
+
     return {
-      tab: null,
-      items: ['全体戦績', '個人戦績', '直近戦績', '戦績登録'],
+      tab,
+      items,
+      killers,
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
