@@ -1,5 +1,8 @@
 .table {
   &__td {
+    letter-spacing: 1px;
+    font-family: 'Times New Roman';
+
     &--name {
       display: flex;
     }
@@ -27,7 +30,7 @@
 .v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
 .v-data-table > .v-data-table__wrapper > table > thead > tr > td,
 .v-data-table > .v-data-table__wrapper > table > tfoot > tr > td {
-  font-size: 17px;
+  font-size: 18px;
   height: auto;
 }
 

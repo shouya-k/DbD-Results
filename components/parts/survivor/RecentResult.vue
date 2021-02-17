@@ -8,33 +8,26 @@
   >
     <template #body>
       <tbody class="table__body">
-        <tr class="table__tr--win">
+        <tr
+          v-for="result in results"
+          :key="result.id"
+          :class="{
+            'table__tr--win': result.survival,
+            'table__tr--lose': !result.survival,
+          }"
+        >
           <td class="table__td table__td--name">
-            <img class="table__img" :src="killers[0].url" />
-            <span class="table__span">{{ killers[0].name }}</span>
+            <img class="table__img" :src="result.killerImage" />
+            <span class="table__span">{{ result.killerName }}</span>
           </td>
-          <td class="table__td">20,000</td>
+          <td class="table__td">{{ result.score }}</td>
           <td class="table__images">
-            <img class="table__park-img" :src="park[0].url" alt="" />
-            <img class="table__park-img" :src="park[1].url" alt="" />
-            <img class="table__park-img" :src="park[2].url" alt="" />
-            <img class="table__park-img" :src="park[3].url" alt="" />
+            <img class="table__park-img" :src="result.parkImage01" alt="" />
+            <img class="table__park-img" :src="result.parkImage02" alt="" />
+            <img class="table__park-img" :src="result.parkImage03" alt="" />
+            <img class="table__park-img" :src="result.parkImage04" alt="" />
           </td>
-          <td class="table__td">生存</td>
-        </tr>
-        <tr class="table__tr--lose">
-          <td class="table__td table__td--name">
-            <img class="table__img" :src="killers[4].url" />
-            <span class="table__span">{{ killers[4].name }}</span>
-          </td>
-          <td class="table__td">20,000</td>
-          <td class="table__images">
-            <img class="table__park-img" :src="park[0].url" alt="" />
-            <img class="table__park-img" :src="park[1].url" alt="" />
-            <img class="table__park-img" :src="park[2].url" alt="" />
-            <img class="table__park-img" :src="park[3].url" alt="" />
-          </td>
-          <td class="table__td">死亡</td>
+          <td class="table__td">{{ result.status }}</td>
         </tr>
       </tbody>
     </template>
@@ -43,6 +36,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import { useGetResult } from '~/compositions/survivor/useGetResult'
 import killerData from '~/static/js/killerData'
 import parkData from '~/static/js/parkData'
 
@@ -72,11 +66,16 @@ export default defineComponent({
       },
     ])
 
+    const { results, getResult } = useGetResult()
+
+    getResult()
+
     const killers = ref(killerData)
     const park = ref(parkData)
 
     return {
       tableHead,
+      results,
       killers,
       park,
     }

@@ -14,10 +14,10 @@ export const useParkModal = () => {
     parkName02: '',
     parkName03: '',
     parkName04: '',
-    parkImage01: null,
-    parkImage02: null,
-    parkImage03: null,
-    parkImage04: null,
+    parkImage01: '',
+    parkImage02: '',
+    parkImage03: '',
+    parkImage04: '',
   })
 
   const showParkModal01 = () => (survivor.parkModal01 = true)

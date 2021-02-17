@@ -1,0 +1,18 @@
+type SurvivorResult @model @searchable {
+  id: ID!
+  killerId: String
+  killerImage: String
+  killerName: String
+  score: String
+  parkId01: String
+  parkId02: String
+  parkId03: String
+  parkId04: String
+  parkImage01: String
+  parkImage02: String
+  parkImage03: String
+  parkImage04: String
+  status: String
+  survival: Boolean
+  createdAt: AWSDateTime
+}
