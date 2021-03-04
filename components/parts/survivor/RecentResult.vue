@@ -88,15 +88,19 @@ export default defineComponent({
   &__tr {
     &--win {
       background-color: rgb(252, 160, 157);
+      opacity: 0.8;
       &:hover {
         background-color: rgb(252, 160, 157) !important;
+        opacity: 1;
       }
     }
 
     &--lose {
       background-color: rgb(135, 175, 245);
+      opacity: 0.8;
       &:hover {
         background-color: rgb(135, 175, 245) !important;
+        opacity: 1;
       }
     }
   }

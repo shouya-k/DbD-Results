@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
-import { API } from 'aws-amplify'
+import { API, Auth } from 'aws-amplify'
 import { searchSurvivorResults } from '~/graphql/queries'
 
 export default defineComponent({
@@ -43,10 +43,14 @@ export default defineComponent({
 
     const serchResult = async (): Promise<void> => {
       try {
+        const user: any = await Auth.currentAuthenticatedUser()
         const result: any = await API.graphql({
           query: searchSurvivorResults,
           variables: {
             filter: {
+              uid: {
+                match: user.attributes.sub,
+              },
               killerId: {
                 match: props.id,
               },

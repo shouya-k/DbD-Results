@@ -5,13 +5,15 @@ import { Result, Killer, Survivor } from '~/types/SurvivorResult'
 export const useCreateResult = async (
   form: Result,
   killer: Killer,
-  survivor: Survivor
+  survivor: Survivor,
+  uid: string
 ): Promise<void> => {
   try {
     await API.graphql({
       query: createSurvivorResult,
       variables: {
         input: {
+          uid,
           killerId: killer.id,
           killerImage: killer.image,
           killerName: killer.name,
@@ -29,6 +31,7 @@ export const useCreateResult = async (
         },
       },
     })
+    location.reload()
   } catch (error) {
     console.log(error)
   }

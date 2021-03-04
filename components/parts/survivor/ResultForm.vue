@@ -92,10 +92,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import { Auth } from 'aws-amplify'
 import KillerModal from '~/components/parts/survivor/KillerModal.vue'
 import ParkModal from '~/components/parts/survivor/ParkModal.vue'
-import { useKillerModal } from '~/compositions/survivor/useKillerModal.ts'
-import { useParkModal } from '~/compositions/survivor/useParkModal.ts'
+import { useKillerModal } from '~/compositions/survivor/useKillerModal'
+import { useParkModal } from '~/compositions/survivor/useParkModal'
 import { useCreateResult } from '~/compositions/survivor/useCreateResult'
 
 export default defineComponent({
@@ -157,8 +158,9 @@ export default defineComponent({
       survival: false,
     })
 
-    const createSurvivorResult = (): void => {
-      useCreateResult(form, killer, survivor)
+    const createSurvivorResult = async (): Promise<void> => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      useCreateResult(form, killer, survivor, user.attributes.sub)
     }
 
     const resultStatus = (event: any) => {

@@ -9,15 +9,51 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn link nuxt to="/" class="mr-3" icon>
-        <v-icon title="ホーム">mdi-home</v-icon>
+      <v-btn
+        link
+        nuxt
+        to="/"
+        class="mr-3 head__img--opacity"
+        active-class="head__img--active"
+        icon
+      >
+        <img :src="home" alt="" class="head__img" />
       </v-btn>
 
-      <v-btn link nuxt to="/profile" class="mr-3" icon>
-        <v-icon title="プロフィール">mdi-account</v-icon>
+      <v-btn
+        link
+        nuxt
+        to="/killer"
+        class="mr-3 head__img--opacity"
+        active-class="head__img--active"
+        icon
+      >
+        <img :src="killer" alt="" class="head__img" />
       </v-btn>
 
-      <v-btn icon>
+      <v-btn
+        link
+        nuxt
+        to="/survivor"
+        class="mr-3 head__img--opacity"
+        active-class="head__img--active"
+        icon
+      >
+        <img :src="survivor" alt="" class="head__img" />
+      </v-btn>
+
+      <v-btn
+        link
+        nuxt
+        to="/profile"
+        class="mr-3 head__img--opacity"
+        active-class="head__img--active"
+        icon
+      >
+        <img :src="profile" alt="" class="head__img" />
+      </v-btn>
+
+      <v-btn icon @click="signOut">
         <v-icon title="サインアウト">mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
@@ -47,12 +83,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, ref, toRefs } from '@nuxtjs/composition-api'
+import { Auth } from 'aws-amplify'
 
 export default defineComponent({
-  data() {
+  setup(props, context) {
+    const router = context.root.$router
+    const drawer = ref(false)
+
+    const img = reactive({
+      home:
+        'https://user-images.githubusercontent.com/65233189/109669633-a277f680-7bb5-11eb-8d63-5da840da149f.png',
+      killer:
+        'https://lh3.googleusercontent.com/mbA7AC303n01peLXr_QgVlx85wZuOu-uIc519UnfwXe1JrgNzNgPLB1Ma4dsqIZzGfWf0s8WB2PrebXxmuri5MkcP9jLnt7DLHrP19KCHgAa=w130',
+      survivor:
+        'https://lh3.googleusercontent.com/tz9kF04ruHt1ivDZDecG-AQbVjfZuD7cP5ADD_hHKI1rGmUF3W2_FV5MhXiNNbM1Cl6N3ejK5gSfaHJNBR0Xp-Z8AwJ-xbj2a5kUdtcJeM4=w120',
+      profile:
+        'https://user-images.githubusercontent.com/65233189/109669036-11088480-7bb5-11eb-80bb-b065ddd647c3.png',
+    })
+
+    const signOut = async () => {
+      try {
+        await Auth.signOut()
+        router.push('/signin')
+      } catch (error) {
+        console.log('error signing out: ', error)
+      }
+    }
+
     return {
-      drawer: false,
+      drawer,
+      ...toRefs(img),
+      signOut,
     }
   },
 })
@@ -65,6 +127,25 @@ export default defineComponent({
   &__title {
     font-size: 24px;
     font-weight: bold;
+  }
+
+  &__img {
+    width: 40px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background-color: #fff;
+
+    &--opacity {
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &--active {
+      opacity: 1;
+    }
   }
 }
 

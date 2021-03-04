@@ -1,5 +1,5 @@
 import { ref } from '@nuxtjs/composition-api'
-import { API } from 'aws-amplify'
+import { API, Auth } from 'aws-amplify'
 import { searchSurvivorResults } from '~/graphql/queries'
 
 export const useGetResult = () => {
@@ -7,9 +7,15 @@ export const useGetResult = () => {
 
   const getResult = async (): Promise<void> => {
     try {
+      const user: any = await Auth.currentAuthenticatedUser()
       const result: any = await API.graphql({
         query: searchSurvivorResults,
         variables: {
+          filter: {
+            uid: {
+              match: user.attributes.sub,
+            },
+          },
           sort: {
             field: 'createdAt',
             direction: 'desc',
@@ -17,7 +23,6 @@ export const useGetResult = () => {
           limit: 30,
         },
       })
-      console.log(result)
       results.value = result.data.searchSurvivorResults.items
     } catch (error) {
       console.log(error)
