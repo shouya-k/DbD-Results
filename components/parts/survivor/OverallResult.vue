@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
-import { useGetResult } from '~/compositions/survivor/useGetResult'
+// import { useGetResult } from '~/compositions/survivor/useGetResult'
 import KillerResults from '~/components/parts/survivor/OverallKillerData.vue'
 import killerData from '~/static/js/killerData'
 
@@ -69,14 +69,13 @@ export default defineComponent({
 
     const killers = ref(killerData)
 
-    const { results, serchResult } = useGetResult()
+    // const { results, serchResult } = useGetResult()
 
-    serchResult(killers)
+    // serchResult(killers)
 
     return {
       tableHead,
       killers,
-      results,
     }
   },
 })

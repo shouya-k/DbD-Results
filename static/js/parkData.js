@@ -431,7 +431,8 @@ const parkData = [
   },
   {
     id: 87,
-    url: require('@/assets/img/park/park87.gif'),
+    url:
+      'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20500%20300%22%3E%3C/svg%3E',
     name: 'なし',
   },
 ]

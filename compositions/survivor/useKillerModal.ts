@@ -4,7 +4,7 @@ export const useKillerModal = () => {
   const killer = reactive({
     modal: false,
     id: '',
-    image: '',
+    image: require('@/assets/img/default-img.svg'),
     name: '',
   })
 

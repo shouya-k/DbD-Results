@@ -15,7 +15,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  toRefs,
+} from '@nuxtjs/composition-api'
 import { API, Auth } from 'aws-amplify'
 import { searchSurvivorResults } from '~/graphql/queries'
 
@@ -73,7 +78,9 @@ export default defineComponent({
       }
     }
 
-    serchResult()
+    onMounted(() => {
+      serchResult()
+    })
 
     return {
       ...toRefs(results),

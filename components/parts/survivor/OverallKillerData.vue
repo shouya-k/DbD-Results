@@ -15,7 +15,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  toRefs,
+} from '@nuxtjs/composition-api'
 import { API } from 'aws-amplify'
 import { searchSurvivorResults } from '~/graphql/queries'
 
@@ -59,7 +64,7 @@ export default defineComponent({
       }
     }
 
-    const getResult = (items: any) => {
+    const getResult = (items: any): void => {
       for (const item of items) {
         results.totalScore += Number(item.score)
         results.matches++
@@ -69,7 +74,9 @@ export default defineComponent({
       }
     }
 
-    serchResult()
+    onMounted(() => {
+      serchResult()
+    })
 
     return {
       ...toRefs(results),

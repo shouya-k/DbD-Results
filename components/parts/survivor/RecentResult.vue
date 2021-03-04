@@ -35,7 +35,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+} from '@nuxtjs/composition-api'
 import { useGetResult } from '~/compositions/survivor/useGetResult'
 import killerData from '~/static/js/killerData'
 import parkData from '~/static/js/parkData'
@@ -68,7 +73,9 @@ export default defineComponent({
 
     const { results, getResult } = useGetResult()
 
-    getResult()
+    onMounted(() => {
+      getResult()
+    })
 
     const killers = ref(killerData)
     const park = ref(parkData)

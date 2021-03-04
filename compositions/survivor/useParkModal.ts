@@ -14,10 +14,10 @@ export const useParkModal = () => {
     parkName02: '',
     parkName03: '',
     parkName04: '',
-    parkImage01: '',
-    parkImage02: '',
-    parkImage03: '',
-    parkImage04: '',
+    parkImage01: require('@/assets/img/default-img.svg'),
+    parkImage02: require('@/assets/img/default-img.svg'),
+    parkImage03: require('@/assets/img/default-img.svg'),
+    parkImage04: require('@/assets/img/default-img.svg'),
   })
 
   const showParkModal01 = () => (survivor.parkModal01 = true)
