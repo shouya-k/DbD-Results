@@ -17,9 +17,9 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="item in items" :key="item">
           <v-card color="basil" flat>
-            <overall-results v-show="item === '全体戦績'" />
+            <overall-results v-show="item === '全体戦績'" :results="results" />
             <personal-results v-show="item === '個人戦績'" />
-            <recent-results v-show="item === '直近戦績'" />
+            <recent-results v-show="item === '直近戦績'" :results="results" />
             <results-form v-show="item === '戦績登録'" />
           </v-card>
         </v-tab-item>
@@ -28,13 +28,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import OverallResults from '~/components/parts/survivor/OverallResult.vue'
 import PersonalResults from '~/components/parts/survivor/PersonalResult.vue'
 import RecentResults from '~/components/parts/survivor/RecentResult.vue'
 import ResultsForm from '~/components/parts/survivor/ResultForm.vue'
 import killerData from '~/static/js/killerData'
+import { useGetResut } from '~/compositions/survivor/useGetResult'
 export default defineComponent({
   components: {
     OverallResults,
@@ -42,17 +43,24 @@ export default defineComponent({
     RecentResults,
     ResultsForm,
   },
-  setup() {
+  setup(props, context) {
     const tab = ref(null)
 
     const items = reactive(['全体戦績', '個人戦績', '直近戦績', '戦績登録'])
 
     const killers = ref(killerData)
 
+    // console.log(props.results)
+
+    const { results, getResult } = useGetResut()
+
+    getResult()
+
     return {
       tab,
       items,
       killers,
+      results,
     }
   },
 })

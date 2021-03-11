@@ -21,8 +21,6 @@ import {
   reactive,
   toRefs,
 } from '@nuxtjs/composition-api'
-import { API } from 'aws-amplify'
-import { searchSurvivorResults } from '~/graphql/queries'
 
 export default defineComponent({
   props: {
@@ -38,44 +36,36 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    resultsData: {},
   },
   setup(props, context) {
     const results = reactive({
-      matches: 0,
       totalScore: 0,
+      matches: 0,
       escape: 0,
     })
 
-    const serchResult = async (): Promise<void> => {
-      try {
-        const result: any = await API.graphql({
-          query: searchSurvivorResults,
-          variables: {
-            filter: {
-              killerId: {
-                match: props.id,
-              },
-            },
-          },
-        })
-        getResult(result.data.searchSurvivorResults.items)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    const resultData = reactive<any>(props.resultsData)
+    // const sortResultData = reactive<any>([])
 
-    const getResult = (items: any): void => {
-      for (const item of items) {
-        results.totalScore += Number(item.score)
-        results.matches++
-        if (item.survival === true) {
+    const sortResult = () => {
+      for (const item of resultData) {
+        if (item.killerName === props.name && item.survival === true) {
+          results.totalScore += Number(item.score)
+          results.matches++
           results.escape++
+        } else if (item.killerName === props.name) {
+          results.totalScore += Number(item.score)
+          results.matches++
         }
       }
+      // console.log(sortResultData)
+      // console.log(props.name)
     }
 
     onMounted(() => {
-      serchResult()
+      sortResult()
+      // console.log(results)
     })
 
     return {

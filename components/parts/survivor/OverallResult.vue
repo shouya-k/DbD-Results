@@ -8,7 +8,7 @@
     fixed-header
     class="elevation-1"
   >
-    <template #body="{ items: killers }">
+    <template #body="{}">
       <tbody class="table__body">
         <killer-results
           v-for="killer in killers"
@@ -16,6 +16,7 @@
           :key="killer.id"
           :name="killer.name"
           :img="killer.url"
+          :results-data="resultsData"
         />
       </tbody>
     </template>
@@ -23,8 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
-// import { useGetResult } from '~/compositions/survivor/useGetResult'
+import { defineComponent, reactive } from '@nuxtjs/composition-api'
 import KillerResults from '~/components/parts/survivor/OverallKillerData.vue'
 import killerData from '~/static/js/killerData'
 
@@ -32,6 +32,7 @@ export default defineComponent({
   components: {
     KillerResults,
   },
+  props: ['results'],
   setup(props, context) {
     const tableHead = reactive([
       {
@@ -67,15 +68,14 @@ export default defineComponent({
       },
     ])
 
-    const killers = ref(killerData)
+    const killers = reactive([...killerData])
 
-    // const { results, serchResult } = useGetResult()
-
-    // serchResult(killers)
+    const resultsData = reactive(props.results)
 
     return {
       tableHead,
       killers,
+      resultsData,
     }
   },
 })

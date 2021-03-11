@@ -9,7 +9,7 @@
     <template #body>
       <tbody class="table__body">
         <tr
-          v-for="result in results"
+          v-for="result in sortResultData"
           :key="result.id"
           :class="{
             'table__tr--win': result.survival,
@@ -35,18 +35,14 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  reactive,
-  ref,
-} from '@nuxtjs/composition-api'
-import { useGetResult } from '~/compositions/survivor/useGetResult'
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import { Auth } from 'aws-amplify'
 import killerData from '~/static/js/killerData'
 import parkData from '~/static/js/parkData'
 
 export default defineComponent({
-  setup() {
+  props: ['results'],
+  setup(props, context) {
     const tableHead = reactive([
       {
         text: '対戦キラー',
@@ -71,20 +67,30 @@ export default defineComponent({
       },
     ])
 
-    const { results, getResult } = useGetResult()
-
-    onMounted(() => {
-      getResult()
-    })
-
     const killers = ref(killerData)
     const park = ref(parkData)
 
+    // console.log(props.results)
+
+    const sortResultData = reactive<any>([])
+
+    const sortResult = async () => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      for (const item of props.results) {
+        if (item.uid === user.attributes.sub) {
+          sortResultData.push(item)
+        }
+      }
+      // console.log(sortResultData)
+    }
+
+    sortResult()
+
     return {
       tableHead,
-      results,
       killers,
       park,
+      sortResultData,
     }
   },
 })
