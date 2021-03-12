@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@nuxtjs/composition-api'
-import KillerResults from '~/components/parts/survivor/OverallKillerData.vue'
+import KillerResults from '~/components/parts/survivor/OverallResultData.vue'
 import killerData from '~/static/js/killerData'
 
 export default defineComponent({
