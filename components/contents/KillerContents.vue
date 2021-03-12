@@ -17,6 +17,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="item in items" :key="item">
           <v-card color="basil" flat>
+            <overall-result v-show="item === '全体戦績'" />
             <result-form v-show="item === '戦績登録'" />
           </v-card>
         </v-tab-item>
@@ -27,9 +28,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import OverallResult from '~/components/parts/killer/OverallResult.vue'
 import ResultForm from '~/components/parts/killer/ResultForm.vue'
 export default defineComponent({
   components: {
+    OverallResult,
     ResultForm,
   },
   setup(props, context) {

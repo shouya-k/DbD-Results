@@ -44,11 +44,11 @@
                 @change="resultStatus($event)"
               >
                 <option value=""></option>
-                <option value="0人">0人</option>
-                <option value="1人">1人</option>
-                <option value="2人">2人</option>
-                <option value="3人">3人</option>
-                <option value="4人">4人</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
               </select>
             </td>
           </tr>
@@ -251,7 +251,7 @@ export default defineComponent({
   &__select {
     color: #fff;
     font-size: 1.4rem;
-    padding: 10px;
+    padding: 10px 20px;
     outline: none;
     border: 1px solid #fff;
     border-radius: 10px;
