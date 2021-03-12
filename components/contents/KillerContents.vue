@@ -19,6 +19,7 @@
           <v-card color="basil" flat>
             <overall-result v-show="item === '全体戦績'" />
             <personal-result v-show="item === '個人戦績'" />
+            <recent-result v-show="item === '直近戦績'" />
             <result-form v-show="item === '戦績登録'" />
           </v-card>
         </v-tab-item>
@@ -31,11 +32,13 @@
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import OverallResult from '~/components/parts/killer/OverallResult.vue'
 import PersonalResult from '~/components/parts/killer/PersonalResult.vue'
+import RecentResult from '~/components/parts/killer/RecentResult.vue'
 import ResultForm from '~/components/parts/killer/ResultForm.vue'
 export default defineComponent({
   components: {
     OverallResult,
     PersonalResult,
+    RecentResult,
     ResultForm,
   },
   setup(props, context) {
