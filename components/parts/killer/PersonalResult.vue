@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import killerData from '~/static/js/killerData'
-import killerResults from '~/components/parts/survivor/PersonalResultData.vue'
+import killerResults from '~/components/parts/killer/PersonalResultData.vue'
 
 export default defineComponent({
   components: {
@@ -34,15 +34,15 @@ export default defineComponent({
   setup() {
     const tableHead = reactive([
       {
-        text: '対戦キラー',
+        text: '使用キラー',
         sortable: false,
         class: 'text-center body-2 font-weight-bold',
       },
       { text: '対戦数', class: 'body-2 font-weight-bold', sortable: false },
       { text: '総得点', class: 'body-2 font-weight-bold', sortable: false },
       { text: '平均得点', class: 'body-2 font-weight-bold', sortable: false },
-      { text: '脱出数', class: 'body-2 font-weight-bold', sortable: false },
-      { text: '脱出率 (%)', class: 'body-2 font-weight-bold', sortable: false },
+      { text: '処刑数', class: 'body-2 font-weight-bold', sortable: false },
+      { text: '全滅率 (%)', class: 'body-2 font-weight-bold', sortable: false },
     ])
 
     const killers = ref(killerData)
