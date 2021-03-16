@@ -9,13 +9,18 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import Header from '~/components/layout/Header.vue'
 import Content from '~/components/contents/SurvivorContents.vue'
+import { useCurrentUser } from '~/compositions/user/useCurrentUser'
 
 export default defineComponent({
   components: {
     Header,
     Content,
   },
-  setup() {
+  setup(props, context) {
+    const { getCurrentUser } = useCurrentUser(context)
+
+    getCurrentUser()
+
     return {}
   },
 })

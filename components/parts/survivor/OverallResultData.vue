@@ -5,8 +5,10 @@
       <span class="table__span">{{ name }}</span>
     </td>
     <td class="table__td">{{ matches }}</td>
-    <td class="table__td">{{ totalScore }}</td>
-    <td class="table__td">{{ Math.round(totalScore / matches) }}</td>
+    <td class="table__td">{{ totalScore.toLocaleString() }}</td>
+    <td class="table__td">
+      {{ Math.round(totalScore / matches).toLocaleString() }}
+    </td>
     <td class="table__td">{{ escape }}</td>
     <td class="table__td">{{ Math.round((escape / matches) * 100) + '%' }}</td>
   </tr>
@@ -14,8 +16,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
-import { API } from 'aws-amplify'
-import { searchSurvivorResults } from '~/graphql/queries'
 
 export default defineComponent({
   props: {
@@ -31,46 +31,38 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    resultsData: {},
   },
   setup(props, context) {
     const results = reactive({
-      matches: 0,
       totalScore: 0,
+      matches: 0,
       escape: 0,
     })
 
-    const serchResult = async (): Promise<void> => {
-      try {
-        const result: any = await API.graphql({
-          query: searchSurvivorResults,
-          variables: {
-            filter: {
-              killerId: {
-                match: props.id,
-              },
-            },
-          },
-        })
-        getResult(result.data.searchSurvivorResults.items)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    const resultData = reactive<any>(props.resultsData)
+    // const sortResultData = reactive<any>([])
 
-    const getResult = (items: any) => {
-      for (const item of items) {
-        results.totalScore += Number(item.score)
-        results.matches++
-        if (item.survival === true) {
-          results.escape++
+    const sortResult = () => {
+      setTimeout(() => {
+        for (const item of resultData) {
+          if (item.killerName === props.name && item.survival === true) {
+            results.totalScore += Number(item.score)
+            results.matches++
+            results.escape++
+          } else if (item.killerName === props.name) {
+            results.totalScore += Number(item.score)
+            results.matches++
+          }
         }
-      }
+      }, 1000)
     }
 
-    serchResult()
+    sortResult()
 
     return {
       ...toRefs(results),
+      resultData,
     }
   },
 })

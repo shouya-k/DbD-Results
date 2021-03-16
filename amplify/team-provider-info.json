@@ -10,6 +10,11 @@
       "StackName": "amplify-dbdresult02-dev-114048",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:374844139563:stack/amplify-dbdresult02-dev-114048/64d6a8e0-6692-11eb-a3b8-0effa60092b9",
       "AmplifyAppId": "dljn8wuetbttl"
+    },
+    "categories": {
+      "auth": {
+        "dbdresult0276f92968": {}
+      }
     }
   }
 }

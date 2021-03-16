@@ -9,7 +9,7 @@
     <template #body>
       <tbody class="table__body">
         <tr
-          v-for="result in results"
+          v-for="result in sortResultData"
           :key="result.id"
           :class="{
             'table__tr--win': result.survival,
@@ -20,7 +20,7 @@
             <img class="table__img" :src="result.killerImage" />
             <span class="table__span">{{ result.killerName }}</span>
           </td>
-          <td class="table__td">{{ result.score }}</td>
+          <td class="table__td">{{ replaceScore(result.score) }}</td>
           <td class="table__images">
             <img class="table__park-img" :src="result.parkImage01" alt="" />
             <img class="table__park-img" :src="result.parkImage02" alt="" />
@@ -36,12 +36,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
-import { useGetResult } from '~/compositions/survivor/useGetResult'
+import { Auth } from 'aws-amplify'
 import killerData from '~/static/js/killerData'
 import parkData from '~/static/js/parkData'
 
 export default defineComponent({
-  setup() {
+  props: ['results'],
+  setup(props, context) {
     const tableHead = reactive([
       {
         text: '対戦キラー',
@@ -66,18 +67,35 @@ export default defineComponent({
       },
     ])
 
-    const { results, getResult } = useGetResult()
-
-    getResult()
-
     const killers = ref(killerData)
     const park = ref(parkData)
 
+    // console.log(props.results)
+
+    const sortResultData = reactive<any>([])
+
+    const sortResult = async () => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      for (const item of props.results) {
+        if (item.uid === user.attributes.sub) {
+          sortResultData.push(item)
+        }
+      }
+      // console.log(sortResultData)
+    }
+
+    sortResult()
+
+    const replaceScore = (score: Number) => {
+      return score.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+
     return {
       tableHead,
-      results,
       killers,
       park,
+      sortResultData,
+      replaceScore,
     }
   },
 })
@@ -88,15 +106,19 @@ export default defineComponent({
   &__tr {
     &--win {
       background-color: rgb(252, 160, 157);
+      opacity: 0.8;
       &:hover {
         background-color: rgb(252, 160, 157) !important;
+        opacity: 1;
       }
     }
 
     &--lose {
       background-color: rgb(135, 175, 245);
+      opacity: 0.8;
       &:hover {
         background-color: rgb(135, 175, 245) !important;
+        opacity: 1;
       }
     }
   }

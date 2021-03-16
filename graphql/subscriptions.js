@@ -5,6 +5,7 @@ export const onCreateSurvivorResult = /* GraphQL */ `
   subscription OnCreateSurvivorResult {
     onCreateSurvivorResult {
       id
+      uid
       killerId
       killerImage
       killerName
@@ -28,6 +29,7 @@ export const onUpdateSurvivorResult = /* GraphQL */ `
   subscription OnUpdateSurvivorResult {
     onUpdateSurvivorResult {
       id
+      uid
       killerId
       killerImage
       killerName
@@ -51,6 +53,7 @@ export const onDeleteSurvivorResult = /* GraphQL */ `
   subscription OnDeleteSurvivorResult {
     onDeleteSurvivorResult {
       id
+      uid
       killerId
       killerImage
       killerName
@@ -65,6 +68,114 @@ export const onDeleteSurvivorResult = /* GraphQL */ `
       parkImage04
       status
       survival
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateKillerResult = /* GraphQL */ `
+  subscription OnCreateKillerResult {
+    onCreateKillerResult {
+      id
+      uid
+      killerId
+      killerImage
+      killerName
+      score
+      parkId01
+      parkId02
+      parkId03
+      parkId04
+      parkImage01
+      parkImage02
+      parkImage03
+      parkImage04
+      killed
+      perfect
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateKillerResult = /* GraphQL */ `
+  subscription OnUpdateKillerResult {
+    onUpdateKillerResult {
+      id
+      uid
+      killerId
+      killerImage
+      killerName
+      score
+      parkId01
+      parkId02
+      parkId03
+      parkId04
+      parkImage01
+      parkImage02
+      parkImage03
+      parkImage04
+      killed
+      perfect
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteKillerResult = /* GraphQL */ `
+  subscription OnDeleteKillerResult {
+    onDeleteKillerResult {
+      id
+      uid
+      killerId
+      killerImage
+      killerName
+      score
+      parkId01
+      parkId02
+      parkId03
+      parkId04
+      parkImage01
+      parkImage02
+      parkImage03
+      parkImage04
+      killed
+      perfect
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      uid
+      name
+      img
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      uid
+      name
+      img
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
+      id
+      uid
+      name
+      img
       createdAt
       updatedAt
     }

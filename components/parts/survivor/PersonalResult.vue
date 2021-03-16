@@ -10,17 +10,14 @@
   >
     <template #body="{ items: killers }">
       <tbody class="table__body">
-        <tr v-for="killer in killers" :key="killer.id" class="table__tr pa-10">
-          <td class="table__td--name">
-            <img class="table__img" :src="killer.url" />
-            <span class="table__span">{{ killer.name }}</span>
-          </td>
-          <td class="table__td">20</td>
-          <td class="table__td">40,0000</td>
-          <td class="table__td">200000</td>
-          <td class="table__td">5</td>
-          <td class="table__td">50%</td>
-        </tr>
+        <killer-results
+          v-for="killer in killers"
+          :id="killer.id"
+          :key="killer.id"
+          :name="killer.name"
+          :img="killer.url"
+          :results-data="resultsData"
+        />
       </tbody>
     </template>
   </v-data-table>
@@ -29,27 +26,35 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import killerData from '~/static/js/killerData'
+import killerResults from '~/components/parts/survivor/PersonalResultData.vue'
 
 export default defineComponent({
-  setup() {
+  components: {
+    killerResults,
+  },
+  props: ['results'],
+  setup(props, context) {
     const tableHead = reactive([
       {
         text: '対戦キラー',
         sortable: false,
         class: 'text-center body-2 font-weight-bold',
       },
-      { text: '対戦数', class: 'body-2 font-weight-bold' },
-      { text: '総得点', class: 'body-2 font-weight-bold' },
-      { text: '平均得点', class: 'body-2 font-weight-bold' },
-      { text: '脱出数', class: 'body-2 font-weight-bold' },
-      { text: '脱出率 (%)', class: 'body-2 font-weight-bold' },
+      { text: '対戦数', class: 'body-2 font-weight-bold', sortable: false },
+      { text: '総得点', class: 'body-2 font-weight-bold', sortable: false },
+      { text: '平均得点', class: 'body-2 font-weight-bold', sortable: false },
+      { text: '脱出数', class: 'body-2 font-weight-bold', sortable: false },
+      { text: '脱出率 (%)', class: 'body-2 font-weight-bold', sortable: false },
     ])
 
     const killers = ref(killerData)
 
+    const resultsData = reactive(props.results)
+
     return {
       tableHead,
       killers,
+      resultsData,
     }
   },
 })

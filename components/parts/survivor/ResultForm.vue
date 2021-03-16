@@ -5,8 +5,8 @@
         <tbody class="table__body">
           <tr class="table__tr">
             <td class="table__td" @click="showKillerModal">
-              <img class="table__killer-img" :src="killer.image" alt />
-              <span class="table__span">{{ killer.name }}</span>
+              <img class="table__killer-img" :src="killerImage" alt />
+              <span class="table__span">{{ killerName }}</span>
             </td>
             <td class="table__td">
               <input v-model="score" class="table__input" type="text" />
@@ -63,7 +63,7 @@
       >
     </div>
     <killer-modal
-      :is-show="killer.modal"
+      :is-show="killerModal"
       @hiddenModal="hiddenKillerModal"
       @selectKiller="selectKiller($event)"
     ></killer-modal>
@@ -92,10 +92,10 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import { Auth } from 'aws-amplify'
 import KillerModal from '~/components/parts/survivor/KillerModal.vue'
 import ParkModal from '~/components/parts/survivor/ParkModal.vue'
-import { useKillerModal } from '~/compositions/survivor/useKillerModal.ts'
-import { useParkModal } from '~/compositions/survivor/useParkModal.ts'
+import { useFormModal } from '~/compositions/common/useFormModal'
 import { useCreateResult } from '~/compositions/survivor/useCreateResult'
 
 export default defineComponent({
@@ -129,14 +129,10 @@ export default defineComponent({
     ])
 
     const {
-      killer,
+      modal,
       showKillerModal,
       hiddenKillerModal,
       selectKiller,
-    } = useKillerModal()
-
-    const {
-      survivor,
       showParkModal01,
       showParkModal02,
       showParkModal03,
@@ -149,7 +145,7 @@ export default defineComponent({
       selectPark02,
       selectPark03,
       selectPark04,
-    } = useParkModal()
+    } = useFormModal()
 
     const form = reactive({
       score: '',
@@ -157,8 +153,9 @@ export default defineComponent({
       survival: false,
     })
 
-    const createSurvivorResult = (): void => {
-      useCreateResult(form, killer, survivor)
+    const createSurvivorResult = async (): Promise<void> => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      useCreateResult(form, modal, user.attributes.sub)
     }
 
     const resultStatus = (event: any) => {
@@ -172,11 +169,10 @@ export default defineComponent({
     return {
       tableHead,
       ...toRefs(form),
-      killer,
       showKillerModal,
       hiddenKillerModal,
       selectKiller,
-      ...toRefs(survivor),
+      ...toRefs(modal),
       showParkModal01,
       showParkModal02,
       showParkModal03,
