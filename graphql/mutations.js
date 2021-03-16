@@ -82,6 +82,87 @@ export const deleteSurvivorResult = /* GraphQL */ `
     }
   }
 `;
+export const createKillerResult = /* GraphQL */ `
+  mutation CreateKillerResult(
+    $input: CreateKillerResultInput!
+    $condition: ModelKillerResultConditionInput
+  ) {
+    createKillerResult(input: $input, condition: $condition) {
+      id
+      uid
+      killerId
+      killerImage
+      killerName
+      score
+      parkId01
+      parkId02
+      parkId03
+      parkId04
+      parkImage01
+      parkImage02
+      parkImage03
+      parkImage04
+      killed
+      perfect
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateKillerResult = /* GraphQL */ `
+  mutation UpdateKillerResult(
+    $input: UpdateKillerResultInput!
+    $condition: ModelKillerResultConditionInput
+  ) {
+    updateKillerResult(input: $input, condition: $condition) {
+      id
+      uid
+      killerId
+      killerImage
+      killerName
+      score
+      parkId01
+      parkId02
+      parkId03
+      parkId04
+      parkImage01
+      parkImage02
+      parkImage03
+      parkImage04
+      killed
+      perfect
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteKillerResult = /* GraphQL */ `
+  mutation DeleteKillerResult(
+    $input: DeleteKillerResultInput!
+    $condition: ModelKillerResultConditionInput
+  ) {
+    deleteKillerResult(input: $input, condition: $condition) {
+      id
+      uid
+      killerId
+      killerImage
+      killerName
+      score
+      parkId01
+      parkId02
+      parkId03
+      parkId04
+      parkImage01
+      parkImage02
+      parkImage03
+      parkImage04
+      killed
+      perfect
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createUser = /* GraphQL */ `
   mutation CreateUser(
     $input: CreateUserInput!

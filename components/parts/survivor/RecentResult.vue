@@ -20,7 +20,7 @@
             <img class="table__img" :src="result.killerImage" />
             <span class="table__span">{{ result.killerName }}</span>
           </td>
-          <td class="table__td">{{ result.score }}</td>
+          <td class="table__td">{{ replaceScore(result.score) }}</td>
           <td class="table__images">
             <img class="table__park-img" :src="result.parkImage01" alt="" />
             <img class="table__park-img" :src="result.parkImage02" alt="" />
@@ -86,11 +86,16 @@ export default defineComponent({
 
     sortResult()
 
+    const replaceScore = (score: Number) => {
+      return score.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+
     return {
       tableHead,
       killers,
       park,
       sortResultData,
+      replaceScore,
     }
   },
 })

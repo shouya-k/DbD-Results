@@ -3,14 +3,10 @@ export interface Result {
   status: String
   survival: Boolean
 }
-
-export interface Killer {
-  id: String
-  image: String
-  name: String
-}
-
-export interface Survivor {
+export interface Modal {
+  killerId: String
+  killerImage: String
+  killerName: String
   parkId01: String
   parkId02: String
   parkId03: String

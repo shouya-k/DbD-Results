@@ -18,7 +18,7 @@
         <v-tab-item v-for="item in items" :key="item">
           <v-card color="basil" flat>
             <overall-results v-show="item === '全体戦績'" :results="results" />
-            <personal-results v-show="item === '個人戦績'" />
+            <personal-results v-show="item === '個人戦績'" :results="results" />
             <recent-results v-show="item === '直近戦績'" :results="results" />
             <results-form v-show="item === '戦績登録'" />
           </v-card>
@@ -31,6 +31,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import OverallResults from '~/components/parts/survivor/OverallResult.vue'
+// import OverallResults from '~/components/parts/survivor/OverallTest.vue'
 import PersonalResults from '~/components/parts/survivor/PersonalResult.vue'
 import RecentResults from '~/components/parts/survivor/RecentResult.vue'
 import ResultsForm from '~/components/parts/survivor/ResultForm.vue'

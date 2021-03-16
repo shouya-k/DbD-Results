@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import { Auth } from 'aws-amplify'
 
 export default defineComponent({
   props: {
@@ -31,6 +32,7 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    resultsData: {},
   },
   setup(props, context) {
     const results = reactive({
@@ -38,6 +40,33 @@ export default defineComponent({
       totalScore: 0,
       escape: 0,
     })
+
+    const resultData = reactive<any>(props.resultsData)
+
+    const sortResult = async () => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      setTimeout(() => {
+        for (const item of resultData) {
+          if (
+            item.uid === user.attributes.sub &&
+            item.killerName === props.name &&
+            item.survival === true
+          ) {
+            results.totalScore += Number(item.score)
+            results.matches++
+            results.escape++
+          } else if (
+            item.uid === user.attributes.sub &&
+            item.killerName === props.name
+          ) {
+            results.totalScore += Number(item.score)
+            results.matches++
+          }
+        }
+      }, 1000)
+    }
+
+    sortResult()
 
     return {
       ...toRefs(results),

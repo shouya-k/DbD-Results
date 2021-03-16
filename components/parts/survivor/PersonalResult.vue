@@ -16,6 +16,7 @@
           :key="killer.id"
           :name="killer.name"
           :img="killer.url"
+          :results-data="resultsData"
         />
       </tbody>
     </template>
@@ -31,7 +32,8 @@ export default defineComponent({
   components: {
     killerResults,
   },
-  setup() {
+  props: ['results'],
+  setup(props, context) {
     const tableHead = reactive([
       {
         text: '対戦キラー',
@@ -47,9 +49,12 @@ export default defineComponent({
 
     const killers = ref(killerData)
 
+    const resultsData = reactive(props.results)
+
     return {
       tableHead,
       killers,
+      resultsData,
     }
   },
 })

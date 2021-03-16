@@ -15,12 +15,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  reactive,
-  toRefs,
-} from '@nuxtjs/composition-api'
+import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
@@ -49,27 +44,25 @@ export default defineComponent({
     // const sortResultData = reactive<any>([])
 
     const sortResult = () => {
-      for (const item of resultData) {
-        if (item.killerName === props.name && item.survival === true) {
-          results.totalScore += Number(item.score)
-          results.matches++
-          results.escape++
-        } else if (item.killerName === props.name) {
-          results.totalScore += Number(item.score)
-          results.matches++
+      setTimeout(() => {
+        for (const item of resultData) {
+          if (item.killerName === props.name && item.survival === true) {
+            results.totalScore += Number(item.score)
+            results.matches++
+            results.escape++
+          } else if (item.killerName === props.name) {
+            results.totalScore += Number(item.score)
+            results.matches++
+          }
         }
-      }
-      // console.log(sortResultData)
-      // console.log(props.name)
+      }, 1000)
     }
 
-    onMounted(() => {
-      sortResult()
-      // console.log(results)
-    })
+    sortResult()
 
     return {
       ...toRefs(results),
+      resultData,
     }
   },
 })
