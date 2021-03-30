@@ -82,12 +82,12 @@ export default defineComponent({
   }
 
   &__card {
-    width: 90%;
+    width: 80%;
     margin: 50px auto 0;
   }
 
   &__tab {
-    width: 200px;
+    width: 20%;
     font-size: 18px;
     font-weight: bold;
   }

@@ -4,7 +4,7 @@
     :items="killers"
     :items-per-page="-1"
     hide-default-footer
-    :height="530"
+    :height="550"
     fixed-header
     class="elevation-1"
   >

@@ -78,7 +78,7 @@ export default defineComponent({
   }
 
   &__card {
-    width: 90%;
+    width: 80%;
     margin: 50px auto 0;
   }
 

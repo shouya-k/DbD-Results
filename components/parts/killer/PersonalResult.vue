@@ -4,8 +4,8 @@
     :items="killers"
     :items-per-page="-1"
     hide-default-footer
-    :height="530"
     fixed-header
+    height="550"
     class="elevation-1"
   >
     <template #body="{ items: killers }">

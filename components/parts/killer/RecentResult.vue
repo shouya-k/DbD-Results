@@ -2,7 +2,7 @@
   <v-data-table
     :headers="tableHead"
     hide-default-footer
-    :height="530"
+    :height="550"
     fixed-header
     class="elevation-1"
   >
