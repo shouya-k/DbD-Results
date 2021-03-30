@@ -3,6 +3,13 @@ export interface Result {
   status: String
   survival: Boolean
 }
+
+export interface KillerResult {
+  score: String
+  killed: String
+  perfect: Boolean
+}
+
 export interface Modal {
   killerId: String
   killerImage: String

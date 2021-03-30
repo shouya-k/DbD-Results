@@ -1,6 +1,6 @@
 import { API } from 'aws-amplify'
 import { createSurvivorResult } from '~/graphql/mutations'
-import { Result, Modal } from '~/types/ResultForm'
+import { Result, Modal } from '~/types/resultForm'
 
 export const useCreateResult = async (
   form: Result,

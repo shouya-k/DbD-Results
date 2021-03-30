@@ -2,7 +2,7 @@ import { reactive } from '@nuxtjs/composition-api'
 import { API } from 'aws-amplify'
 import { searchSurvivorResults } from '~/graphql/queries'
 
-export const useGetResut = () => {
+export const useGetResult = () => {
   const results = reactive<any>([])
 
   const getResult = async () => {
@@ -17,8 +17,6 @@ export const useGetResut = () => {
         },
       })
       results.push(...result.data.searchSurvivorResults.items)
-      // console.log(results.value)
-      // console.log(item01)
     } catch (error) {
       console.log(error)
     }

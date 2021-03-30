@@ -18,6 +18,26 @@ type SurvivorResult @model @searchable {
   createdAt: AWSDateTime
 }
 
+type KillerResult @model @searchable {
+  id: ID!
+  uid: String
+  killerId: String
+  killerImage: String
+  killerName: String
+  score: String
+  parkId01: String
+  parkId02: String
+  parkId03: String
+  parkId04: String
+  parkImage01: String
+  parkImage02: String
+  parkImage03: String
+  parkImage04: String
+  killed: String
+  perfect: Boolean
+  createdAt: AWSDateTime
+}
+
 type User @model @searchable {
   id: ID!
   uid: String

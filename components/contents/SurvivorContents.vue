@@ -36,7 +36,7 @@ import PersonalResults from '~/components/parts/survivor/PersonalResult.vue'
 import RecentResults from '~/components/parts/survivor/RecentResult.vue'
 import ResultsForm from '~/components/parts/survivor/ResultForm.vue'
 import killerData from '~/static/js/killerData'
-import { useGetResut } from '~/compositions/survivor/useGetResult'
+import { useGetResult } from '~/compositions/survivor/useGetResult'
 export default defineComponent({
   components: {
     OverallResults,
@@ -53,7 +53,7 @@ export default defineComponent({
 
     // console.log(props.results)
 
-    const { results, getResult } = useGetResut()
+    const { results, getResult } = useGetResult()
 
     getResult()
 
