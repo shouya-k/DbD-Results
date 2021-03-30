@@ -4,11 +4,13 @@
       <img class="table__img" :src="img" />
       <span class="table__span">{{ name }}</span>
     </td>
-    <td class="table__td">10</td>
-    <td class="table__td">500,000</td>
-    <td class="table__td">14,000</td>
-    <td class="table__td">40</td>
-    <td class="table__td">33%</td>
+    <td class="table__td">{{ matches }}</td>
+    <td class="table__td">{{ totalScore.toLocaleString() }}</td>
+    <td class="table__td">
+      {{ Math.round(totalScore / matches).toLocaleString() }}
+    </td>
+    <td class="table__td">{{ killed }}</td>
+    <td class="table__td">{{ Math.round((perfect / matches) * 100) + '%' }}</td>
   </tr>
 </template>
 
@@ -29,19 +31,41 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    resultsData: {},
   },
   setup(props, context) {
     const results = reactive({
       totalScore: 0,
       matches: 0,
-      escape: 0,
+      killed: 0,
+      perfect: 0,
     })
 
-    // const resultData = reactive<any>(props.resultsData)
+    const resultData = reactive<any>(props.resultsData)
     // const sortResultData = reactive<any>([])
+
+    const sortResult = () => {
+      setTimeout(() => {
+        for (const item of resultData) {
+          if (item.killerName === props.name && item.perfect === true) {
+            results.totalScore += Number(item.score)
+            results.killed += Number(item.killed)
+            results.matches++
+            results.perfect++
+          } else if (item.killerName === props.name) {
+            results.totalScore += Number(item.score)
+            results.killed += Number(item.killed)
+            results.matches++
+          }
+        }
+      }, 1000)
+    }
+
+    sortResult()
 
     return {
       ...toRefs(results),
+      resultData,
     }
   },
 })
