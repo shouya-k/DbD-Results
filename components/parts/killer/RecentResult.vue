@@ -2,49 +2,32 @@
   <v-data-table
     :headers="tableHead"
     hide-default-footer
-    :height="530"
+    :height="550"
     fixed-header
     class="elevation-1"
   >
     <template #body>
       <tbody class="table__body">
         <tr
+          v-for="result in sortResultData"
+          :key="result.id"
           :class="{
-            'table__tr--win': true,
-            'table__tr--lose': false,
+            'table__tr--win': result.killed > 2,
+            'table__tr--lose': result.killed <= 2,
           }"
         >
           <td class="table__td table__td--name">
-            <img class="table__img" :src="killers[1].url" />
-            <span class="table__span">{{ killers[1].name }}</span>
+            <img class="table__img" :src="result.killerImage" />
+            <span class="table__span">{{ result.killerName }}</span>
           </td>
-          <td class="table__td">24,000</td>
+          <td class="table__td">{{ replaceScore(result.score) }}</td>
           <td class="table__images">
-            <img class="table__park-img" :src="park[0].url" alt="" />
-            <img class="table__park-img" :src="park[1].url" alt="" />
-            <img class="table__park-img" :src="park[2].url" alt="" />
-            <img class="table__park-img" :src="park[3].url" alt="" />
+            <img class="table__park-img" :src="result.parkImage01" alt="" />
+            <img class="table__park-img" :src="result.parkImage02" alt="" />
+            <img class="table__park-img" :src="result.parkImage03" alt="" />
+            <img class="table__park-img" :src="result.parkImage04" alt="" />
           </td>
-          <td class="table__td">3</td>
-        </tr>
-        <tr
-          :class="{
-            'table__tr--win': false,
-            'table__tr--lose': true,
-          }"
-        >
-          <td class="table__td table__td--name">
-            <img class="table__img" :src="killers[1].url" />
-            <span class="table__span">{{ killers[1].name }}</span>
-          </td>
-          <td class="table__td">8,000</td>
-          <td class="table__images">
-            <img class="table__park-img" :src="park[4].url" alt="" />
-            <img class="table__park-img" :src="park[6].url" alt="" />
-            <img class="table__park-img" :src="park[8].url" alt="" />
-            <img class="table__park-img" :src="park[10].url" alt="" />
-          </td>
-          <td class="table__td">1</td>
+          <td class="table__td">{{ result.killed }}</td>
         </tr>
       </tbody>
     </template>
@@ -53,10 +36,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import { Auth } from 'aws-amplify'
 import killerData from '~/static/js/killerData'
 import parkData from '~/static/js/killerParkData'
 
 export default defineComponent({
+  props: ['results'],
   setup(props, context) {
     const tableHead = reactive([
       {
@@ -87,10 +72,30 @@ export default defineComponent({
 
     // console.log(props.results)
 
+    const sortResultData = reactive<any>([])
+
+    const sortResult = async () => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      for (const item of props.results) {
+        if (item.uid === user.attributes.sub) {
+          sortResultData.push(item)
+        }
+      }
+      // console.log(sortResultData)
+    }
+
+    sortResult()
+
+    const replaceScore = (score: Number) => {
+      return score.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+
     return {
       tableHead,
       killers,
       park,
+      sortResultData,
+      replaceScore,
     }
   },
 })

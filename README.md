@@ -1,20 +1,39 @@
 # dbd-results
 
-## Build Setup
+## アプリの概要 / Overview
 
-```bash
-# install dependencies
-$ yarn install
+Dead by Daylight の戦績を登録できるアプリです。キラー側、サバイバー側どちらも登録可能です。
+戦績登録のタブから登録でき全体戦績、個人戦績、直近戦績を確認できます。
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+## リリース URL / DemoURL
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+https://dev.dljn8wuetbttl.amplifyapp.com/killer
 
-# generate static project
-$ yarn generate
-```
+## テストアカウント / Demo Account
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+ユーザー名: test01user
+パスワード: password01
+
+## アプリ機能一覧 / Features
+
+- サインアップ、サインイン
+
+- キラー戦績登録
+
+- サバイバー戦績登録
+
+- プロフィール(未実装)
+
+- ランキング(未実装)
+
+- その他副要素(チーム募集できる機能など検討中)
+
+## 使用技術 / Technology
+
+- Nuxt.js
+
+- Vuetify
+
+- TypeScript
+
+- AWS Amplify

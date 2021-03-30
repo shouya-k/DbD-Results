@@ -5,8 +5,8 @@
         <tbody class="table__body">
           <tr class="table__tr">
             <td class="table__td" @click="showKillerModal">
-              <img class="table__killer-img" :src="killer.image" alt />
-              <span class="table__span">{{ killer.name }}</span>
+              <img class="table__killer-img" :src="killerImage" alt />
+              <span class="table__span">{{ killerName }}</span>
             </td>
             <td class="table__td">
               <input v-model="score" class="table__input" type="text" />
@@ -39,7 +39,7 @@
             </td>
             <td class="table__td">
               <select
-                v-model="status"
+                v-model="killed"
                 class="table__select"
                 @change="resultStatus($event)"
               >
@@ -66,7 +66,7 @@
       >
     </div>
     <killer-modal
-      :is-show="killer.modal"
+      :is-show="killerModal"
       @hiddenModal="hiddenKillerModal"
       @selectKiller="selectKiller($event)"
     ></killer-modal>
@@ -95,11 +95,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
-// import { Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 import KillerModal from '~/components/parts/killer/KillerModal.vue'
 import ParkModal from '~/components/parts/killer/ParkModal.vue'
-import { useKillerModal } from '~/compositions/survivor/useKillerModal'
-import { useParkModal } from '~/compositions/survivor/useParkModal'
+import { useFormModal } from '~/compositions/common/useFormModal'
+import { useCreateResult } from '~/compositions/killer/useCreateResult'
 
 export default defineComponent({
   components: {
@@ -132,14 +132,10 @@ export default defineComponent({
     ])
 
     const {
-      killer,
+      modal,
       showKillerModal,
       hiddenKillerModal,
       selectKiller,
-    } = useKillerModal()
-
-    const {
-      survivor,
       showParkModal01,
       showParkModal02,
       showParkModal03,
@@ -152,35 +148,34 @@ export default defineComponent({
       selectPark02,
       selectPark03,
       selectPark04,
-    } = useParkModal()
+    } = useFormModal()
 
     const form = reactive({
       score: '',
-      status: '',
-      survival: false,
+      killed: '',
+      perfect: false,
     })
 
-    const createSurvivorResult = async (): Promise<void> => {
-      // const user: any = await Auth.currentAuthenticatedUser()
-      // useCreateResult(form, killer, survivor, user.attributes.sub)
+    const resultStatus = (event: any) => {
+      if (event.target.value > 2) {
+        form.perfect = true
+      } else {
+        form.perfect = false
+      }
     }
 
-    const resultStatus = (event: any) => {
-      if (event.target.value === '生存') {
-        form.survival = true
-      } else {
-        form.survival = false
-      }
+    const createSurvivorResult = async (): Promise<void> => {
+      const user: any = await Auth.currentAuthenticatedUser()
+      useCreateResult(form, modal, user.attributes.sub)
     }
 
     return {
       tableHead,
       ...toRefs(form),
-      killer,
       showKillerModal,
       hiddenKillerModal,
       selectKiller,
-      ...toRefs(survivor),
+      ...toRefs(modal),
       showParkModal01,
       showParkModal02,
       showParkModal03,

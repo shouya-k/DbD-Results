@@ -1,15 +1,15 @@
 import { API } from 'aws-amplify'
-import { createSurvivorResult } from '~/graphql/mutations'
-import { Result, Modal } from '~/types/resultForm'
+import { createKillerResult } from '~/graphql/mutations'
+import { KillerResult, Modal } from '~/types/resultForm'
 
 export const useCreateResult = async (
-  form: Result,
+  form: KillerResult,
   modal: Modal,
   uid: string
 ): Promise<void> => {
   try {
     await API.graphql({
-      query: createSurvivorResult,
+      query: createKillerResult,
       variables: {
         input: {
           uid,
@@ -25,8 +25,8 @@ export const useCreateResult = async (
           parkImage02: modal.parkImage02,
           parkImage03: modal.parkImage03,
           parkImage04: modal.parkImage04,
-          status: form.status,
-          survival: form.survival,
+          killed: form.killed,
+          perfect: form.perfect,
         },
       },
     })

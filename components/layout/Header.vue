@@ -10,14 +10,14 @@
       <v-spacer></v-spacer>
 
       <v-btn
+        class="mr-3 head__img--opacity"
+        active-class="head__img--active"
         link
         nuxt
         to="/"
-        class="mr-3 head__img--opacity"
-        active-class="head__img--active"
         icon
       >
-        <img :src="home" alt="" class="head__img" />
+        <v-icon large>mdi-home</v-icon>
       </v-btn>
 
       <v-btn
@@ -50,7 +50,7 @@
         active-class="head__img--active"
         icon
       >
-        <img :src="profile" alt="" class="head__img" />
+        <v-icon large>mdi-account</v-icon>
       </v-btn>
 
       <v-btn icon @click="signOut">
@@ -60,7 +60,7 @@
 
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
       <v-list nav dense>
-        <v-list-item-group active-class="deep-purple--text text--accent-4">
+        <v-list-item-group active-class=" text--accent-4">
           <v-list-item to="/" nuxt>
             <v-list-item-title>ホーム</v-list-item-title>
           </v-list-item>

@@ -1,6 +1,6 @@
-import { reactive } from '@nuxtjs/composition-api'
+import { reactive } from '@vue/composition-api'
 import { API } from 'aws-amplify'
-import { searchSurvivorResults } from '~/graphql/queries'
+import { searchKillerResults } from '~/graphql/queries'
 
 export const useGetResult = () => {
   const results = reactive<any>([])
@@ -8,7 +8,7 @@ export const useGetResult = () => {
   const getResult = async () => {
     try {
       const result: any = await API.graphql({
-        query: searchSurvivorResults,
+        query: searchKillerResults,
         variables: {
           sort: {
             field: 'createdAt',
@@ -16,7 +16,7 @@ export const useGetResult = () => {
           },
         },
       })
-      results.push(...result.data.searchSurvivorResults.items)
+      results.push(...result.data.searchKillerResults.items)
     } catch (error) {
       console.log(error)
     }

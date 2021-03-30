@@ -4,7 +4,7 @@
     :items="killers"
     :items-per-page="-1"
     hide-default-footer
-    :height="531"
+    :height="550"
     fixed-header
     class="elevation-1"
   >
@@ -16,6 +16,7 @@
           :key="killer.id"
           :name="killer.name"
           :img="killer.url"
+          :results-data="resultsData"
         />
       </tbody>
     </template>
@@ -31,6 +32,7 @@ export default defineComponent({
   components: {
     KillerResults,
   },
+  props: ['results'],
   setup(props, context) {
     const tableHead = reactive([
       {
@@ -68,12 +70,12 @@ export default defineComponent({
 
     const killers = reactive([...killerData])
 
-    // const resultsData = reactive(props.results)
+    const resultsData = reactive(props.results)
 
     return {
       tableHead,
       killers,
-      // resultsData,
+      resultsData,
     }
   },
 })

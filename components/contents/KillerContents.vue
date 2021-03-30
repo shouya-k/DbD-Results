@@ -17,9 +17,9 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="item in items" :key="item">
           <v-card color="basil" flat>
-            <overall-result v-show="item === '全体戦績'" />
-            <personal-result v-show="item === '個人戦績'" />
-            <recent-result v-show="item === '直近戦績'" />
+            <overall-result v-show="item === '全体戦績'" :results="results" />
+            <personal-result v-show="item === '個人戦績'" :results="results" />
+            <recent-result v-show="item === '直近戦績'" :results="results" />
             <result-form v-show="item === '戦績登録'" />
           </v-card>
         </v-tab-item>
@@ -34,6 +34,8 @@ import OverallResult from '~/components/parts/killer/OverallResult.vue'
 import PersonalResult from '~/components/parts/killer/PersonalResult.vue'
 import RecentResult from '~/components/parts/killer/RecentResult.vue'
 import ResultForm from '~/components/parts/killer/ResultForm.vue'
+import { useGetResult } from '~/compositions/killer/useGetResult'
+
 export default defineComponent({
   components: {
     OverallResult,
@@ -48,15 +50,14 @@ export default defineComponent({
 
     // const killers = ref(killerData)
 
-    // console.log(props.results)
+    const { results, getResult } = useGetResult()
 
-    // const { results, getResult } = useGetResut
-
-    // getResult()
+    getResult()
 
     return {
       tab,
       items,
+      results,
     }
   },
 })
@@ -77,7 +78,7 @@ export default defineComponent({
   }
 
   &__card {
-    width: 90%;
+    width: 80%;
     margin: 50px auto 0;
   }
 
