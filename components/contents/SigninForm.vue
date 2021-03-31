@@ -84,7 +84,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .card {
   position: relative;
-  top: 20%;
+  top: 25%;
   &__title {
     margin: 0 auto;
   }

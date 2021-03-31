@@ -11,7 +11,7 @@
             <td class="table__td">
               <input v-model="score" class="table__input" type="text" />
             </td>
-            <td class="table__td">
+            <td class="table__td table__park-images">
               <img
                 class="table__park-img"
                 :src="parkImage01"
@@ -221,6 +221,10 @@ export default defineComponent({
     text-align: center;
   }
 
+  &__park-images {
+    width: 40% !important;
+  }
+
   &__park-img {
     width: 53px;
     height: 53px;
@@ -230,7 +234,7 @@ export default defineComponent({
   }
 
   &__input {
-    width: 50%;
+    width: 70%;
     font-size: 30px;
     padding: 5px 0;
     outline: none;
@@ -269,11 +273,11 @@ export default defineComponent({
 }
 
 .v-data-table > .v-data-table__wrapper > table > tbody > tr > td:first-child {
-  width: 18%;
+  width: 15%;
 }
 
 .v-data-table > .v-data-table__wrapper > table > tbody > tr > td:last-child {
-  width: 18%;
+  width: 15%;
 }
 
 .theme--dark.v-data-table

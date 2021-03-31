@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="container__inner bg">
+    <div class="container__inner">
       <v-card-title class="text-center justify-center">
         <h1 class="container__title">サバイバー戦績</h1>
       </v-card-title>
@@ -74,7 +74,6 @@ export default defineComponent({
     top: 63.9px;
     z-index: 3;
     color: #fff;
-    background-color: #272727;
   }
 
   &__title {
@@ -91,12 +90,5 @@ export default defineComponent({
     font-size: 18px;
     font-weight: bold;
   }
-}
-
-.bg {
-  background-image: url('~@/assets/img/bg.jpg');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
 }
 </style>

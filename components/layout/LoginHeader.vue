@@ -60,10 +60,7 @@ export default defineComponent({
   }
 }
 
-.bg {
-  background-image: url('~@/assets/img/bg.jpg');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+.theme--dark.v-app-bar.v-toolbar.v-sheet {
+  background-color: rgba(0, 0, 0, 0);
 }
 </style>
