@@ -7,7 +7,7 @@ Dead by Daylight の戦績を登録できるアプリです。キラー側、サ
 
 ## リリース URL / DemoURL
 
-https://dev.dljn8wuetbttl.amplifyapp.com/killer
+https://dev.dljn8wuetbttl.amplifyapp.com/signin
 
 ## テストアカウント / Demo Account
 
