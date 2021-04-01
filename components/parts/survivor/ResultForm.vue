@@ -70,22 +70,22 @@
     <park-modal
       :is-show="parkModal01"
       @hiddenModal="hiddenParkModal01"
-      @selectPark="selectPark01($event)"
+      @selectPark="selectSurvivorPark01($event)"
     ></park-modal>
     <park-modal
       :is-show="parkModal02"
       @hiddenModal="hiddenParkModal02"
-      @selectPark="selectPark02($event)"
+      @selectPark="selectSurvivorPark02($event)"
     ></park-modal>
     <park-modal
       :is-show="parkModal03"
       @hiddenModal="hiddenParkModal03"
-      @selectPark="selectPark03($event)"
+      @selectPark="selectSurvivorPark03($event)"
     ></park-modal>
     <park-modal
       :is-show="parkModal04"
       @hiddenModal="hiddenParkModal04"
-      @selectPark="selectPark04($event)"
+      @selectPark="selectSurvivorPark04($event)"
     ></park-modal>
   </div>
 </template>
@@ -133,6 +133,7 @@ export default defineComponent({
       showKillerModal,
       hiddenKillerModal,
       selectKiller,
+      getSurvivorParkDataFromLocalStorege,
       showParkModal01,
       showParkModal02,
       showParkModal03,
@@ -141,11 +142,13 @@ export default defineComponent({
       hiddenParkModal02,
       hiddenParkModal03,
       hiddenParkModal04,
-      selectPark01,
-      selectPark02,
-      selectPark03,
-      selectPark04,
+      selectSurvivorPark01,
+      selectSurvivorPark02,
+      selectSurvivorPark03,
+      selectSurvivorPark04,
     } = useFormModal()
+
+    getSurvivorParkDataFromLocalStorege()
 
     const form = reactive({
       score: '',
@@ -181,10 +184,10 @@ export default defineComponent({
       hiddenParkModal02,
       hiddenParkModal03,
       hiddenParkModal04,
-      selectPark01,
-      selectPark02,
-      selectPark03,
-      selectPark04,
+      selectSurvivorPark01,
+      selectSurvivorPark02,
+      selectSurvivorPark03,
+      selectSurvivorPark04,
       createSurvivorResult,
       resultStatus,
     }
