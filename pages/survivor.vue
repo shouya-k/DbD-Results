@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <Header />
     <Content />
   </div>
@@ -26,4 +26,9 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.main {
+  overflow: hidden;
+  position: relative;
+}
+</style>

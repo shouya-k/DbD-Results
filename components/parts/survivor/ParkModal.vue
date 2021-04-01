@@ -51,7 +51,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .modal {
-  width: 60%;
+  width: 70%;
   height: 80%;
   overflow-y: scroll;
   background-color: #1f1f1f;
@@ -80,9 +80,9 @@ export default defineComponent({
   &__image {
     width: 16%;
     float: left;
-    padding-top: 10px;
+    padding-top: 15px;
     margin-left: 5px;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.12);

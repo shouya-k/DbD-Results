@@ -50,7 +50,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .modal {
-  width: 60%;
+  width: 70%;
   padding: 20px;
   background-color: #1f1f1f;
   color: #fff;

@@ -86,7 +86,7 @@ export default defineComponent({
   }
 
   &__tab {
-    width: 20%;
+    width: 18%;
     font-size: 18px;
     font-weight: bold;
   }
