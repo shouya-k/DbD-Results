@@ -70,22 +70,22 @@
     <park-modal
       :is-show="parkModal01"
       @hiddenModal="hiddenParkModal01"
-      @selectPark="selectSurvivorPark01($event)"
+      @selectPark="selectPark01($event)"
     ></park-modal>
     <park-modal
       :is-show="parkModal02"
       @hiddenModal="hiddenParkModal02"
-      @selectPark="selectSurvivorPark02($event)"
+      @selectPark="selectPark02($event)"
     ></park-modal>
     <park-modal
       :is-show="parkModal03"
       @hiddenModal="hiddenParkModal03"
-      @selectPark="selectSurvivorPark03($event)"
+      @selectPark="selectPark03($event)"
     ></park-modal>
     <park-modal
       :is-show="parkModal04"
       @hiddenModal="hiddenParkModal04"
-      @selectPark="selectSurvivorPark04($event)"
+      @selectPark="selectPark04($event)"
     ></park-modal>
   </div>
 </template>
@@ -103,7 +103,7 @@ export default defineComponent({
     KillerModal,
     ParkModal,
   },
-  setup() {
+  setup(props, context) {
     const tableHead = reactive([
       {
         text: '対戦キラー',
@@ -133,7 +133,6 @@ export default defineComponent({
       showKillerModal,
       hiddenKillerModal,
       selectKiller,
-      getSurvivorParkDataFromLocalStorege,
       showParkModal01,
       showParkModal02,
       showParkModal03,
@@ -142,13 +141,11 @@ export default defineComponent({
       hiddenParkModal02,
       hiddenParkModal03,
       hiddenParkModal04,
-      selectSurvivorPark01,
-      selectSurvivorPark02,
-      selectSurvivorPark03,
-      selectSurvivorPark04,
+      selectPark01,
+      selectPark02,
+      selectPark03,
+      selectPark04,
     } = useFormModal()
-
-    getSurvivorParkDataFromLocalStorege()
 
     const form = reactive({
       score: '',
@@ -156,9 +153,14 @@ export default defineComponent({
       survival: false,
     })
 
+    const changeTabActive = () => {
+      context.emit('change-active')
+    }
+
     const createSurvivorResult = async (): Promise<void> => {
       const user: any = await Auth.currentAuthenticatedUser()
       useCreateResult(form, modal, user.attributes.sub)
+      changeTabActive()
     }
 
     const resultStatus = (event: any) => {
@@ -184,10 +186,10 @@ export default defineComponent({
       hiddenParkModal02,
       hiddenParkModal03,
       hiddenParkModal04,
-      selectSurvivorPark01,
-      selectSurvivorPark02,
-      selectSurvivorPark03,
-      selectSurvivorPark04,
+      selectPark01,
+      selectPark02,
+      selectPark03,
+      selectPark04,
       createSurvivorResult,
       resultStatus,
     }

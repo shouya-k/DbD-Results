@@ -7,20 +7,33 @@
 
       <v-tabs v-model="tab" background-color="transparent" dark centered>
         <v-tabs-slider color="cyan"></v-tabs-slider>
-        <v-tab v-for="item in items" :key="item" class="container__tab">
-          {{ item }}
-        </v-tab>
+        <v-tab href="#tab-1" class="container__tab">全体戦績</v-tab>
+        <v-tab href="#tab-2" class="container__tab">個人戦績</v-tab>
+        <v-tab href="#tab-3" class="container__tab">直近戦績</v-tab>
+        <v-tab href="#tab-4" class="container__tab">戦績登録</v-tab>
       </v-tabs>
     </div>
 
     <v-card class="container__card">
       <v-tabs-items v-model="tab">
-        <v-tab-item v-for="item in items" :key="item">
+        <v-tab-item value="tab-1">
           <v-card color="basil" flat>
-            <overall-result v-show="item === '全体戦績'" :results="results" />
-            <personal-result v-show="item === '個人戦績'" :results="results" />
-            <recent-result v-show="item === '直近戦績'" :results="results" />
-            <result-form v-show="item === '戦績登録'" />
+            <overall-results :results="results" />
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab-2">
+          <v-card color="basil" flat>
+            <personal-results :results="results" />
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab-3">
+          <v-card color="basil" flat>
+            <recent-results :results="results" />
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab-4">
+          <v-card color="basil" flat>
+            <results-form @change-active="changeActive" />
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -30,25 +43,27 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
-import OverallResult from '~/components/parts/killer/OverallResult.vue'
-import PersonalResult from '~/components/parts/killer/PersonalResult.vue'
-import RecentResult from '~/components/parts/killer/RecentResult.vue'
-import ResultForm from '~/components/parts/killer/ResultForm.vue'
+import OverallResults from '~/components/parts/killer/OverallResult.vue'
+import PersonalResults from '~/components/parts/killer/PersonalResult.vue'
+import RecentResults from '~/components/parts/killer/RecentResult.vue'
+import ResultsForm from '~/components/parts/killer/ResultForm.vue'
 import { useGetResult } from '~/compositions/killer/useGetResult'
 
 export default defineComponent({
   components: {
-    OverallResult,
-    PersonalResult,
-    RecentResult,
-    ResultForm,
+    OverallResults,
+    PersonalResults,
+    RecentResults,
+    ResultsForm,
   },
   setup(props, context) {
-    const tab = ref(null)
+    const tab = ref('tab-1')
 
     const items = reactive(['全体戦績', '個人戦績', '直近戦績', '戦績登録'])
 
-    // const killers = ref(killerData)
+    const changeActive = () => {
+      tab.value = 'tab-3'
+    }
 
     const { results, getResult } = useGetResult()
 
@@ -58,6 +73,7 @@ export default defineComponent({
       tab,
       items,
       results,
+      changeActive,
     }
   },
 })

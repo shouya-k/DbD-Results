@@ -30,7 +30,6 @@ export const useCreateResult = async (
         },
       },
     })
-    location.reload()
   } catch (error) {
     console.log(error)
   }
