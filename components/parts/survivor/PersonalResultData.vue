@@ -1,5 +1,5 @@
 <template>
-  <tr class="table__tr pa-10">
+  <tr v-show="matches != 0" class="table__tr pa-10">
     <td class="table__td--name">
       <img class="table__img" :src="img" />
       <span class="table__span">{{ name }}</span>

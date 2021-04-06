@@ -6,11 +6,15 @@
     </td>
     <td class="table__td">{{ matches }}</td>
     <td class="table__td">{{ totalScore.toLocaleString() }}</td>
-    <td class="table__td">
+    <td v-if="matches == 0" class="table__td">0</td>
+    <td v-else class="table__td">
       {{ Math.round(totalScore / matches).toLocaleString() }}
     </td>
     <td class="table__td">{{ escape }}</td>
-    <td class="table__td">{{ Math.round((escape / matches) * 100) + '%' }}</td>
+    <td v-if="matches == 0" class="table__td">%</td>
+    <td v-else class="table__td">
+      {{ Math.round((escape / matches) * 100) + '%' }}
+    </td>
   </tr>
 </template>
 
